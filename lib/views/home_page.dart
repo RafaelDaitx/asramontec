@@ -9,7 +9,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late ViaCepService buscarCep;
+  // late ViaCepService buscarCep;
   var _resultado;
 
   final _cepController = TextEditingController(); // CEP
@@ -17,7 +17,9 @@ class _HomePageState extends State<HomePage> {
   final _bairroController = TextEditingController(); // Bairro
   final _cidadeContoller = TextEditingController(); // Cidade / Localidade
   final _ufController = TextEditingController(); //  Unidade federativa Estado.
+  final _localidadeController = TextEditingController(); //  Unidade federativa Estado.
   final _logradouroController = TextEditingController(); //  Unidade federativa Estado.
+  final _dddController = TextEditingController(); //  Unidade federativa Estado.
 
   @override
   Widget build(BuildContext context) {
@@ -70,6 +72,13 @@ class _HomePageState extends State<HomePage> {
                 labelText: "Logradouro",
               ),
             ),
+            TextFormField(
+              controller: _dddController,
+              readOnly: true,
+              decoration: const InputDecoration(
+                labelText: "DDD",
+              ),
+            ),
           ],
         ),
       ),
@@ -84,23 +93,29 @@ class _HomePageState extends State<HomePage> {
     String _uf;
     String _endereco;
     String _logradouro;
+    String _localidade;
+    String _ddd;
 
     _cep = _cepController.text;
 
-    final infoCepJSON = await ViaCepService.fetchCep(cep: '$_cep');
+    final infoCepJSON = await ViaCepService.gethttp(_cep);
 
-    // variáveis recebendo os dados em JSON da API
+    //  variáveis recebendo os dados em JSON da API
     _bairro = infoCepJSON.bairro;
+    _localidade = infoCepJSON.localidade;
     _endereco = infoCepJSON.logradouro;
     _cidade = infoCepJSON.localidade;
     _logradouro = infoCepJSON.logradouro;
     _uf = infoCepJSON.uf;
+    _ddd = infoCepJSON.ddd;
 
     // controller recebendo os dados das variáveis
     _enderecoController.text = _endereco;
     _bairroController.text = _bairro;
     _cidadeContoller.text = _cidade;
+    _localidadeController.text = _localidade;
     _ufController.text = _uf;
     _logradouroController.text = _logradouro;
+    _dddController.text = _ddd;
   }
 }
