@@ -44,41 +44,11 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            TextField(
-              controller: _ufController,
-              readOnly: true,
-              decoration: const InputDecoration(
-                labelText: "UF",
-              ),
-            ),
-            TextField(
-              controller: _bairroController,
-              readOnly: true,
-              decoration: const InputDecoration(
-                labelText: "Bairro",
-              ),
-            ),
-            TextFormField(
-              controller: _cidadeContoller,
-              readOnly: true,
-              decoration: const InputDecoration(
-                labelText: "Cidade",
-              ),
-            ),
-            TextFormField(
-              controller: _logradouroController,
-              readOnly: true,
-              decoration: const InputDecoration(
-                labelText: "Logradouro",
-              ),
-            ),
-            TextFormField(
-              controller: _dddController,
-              readOnly: true,
-              decoration: const InputDecoration(
-                labelText: "DDD",
-              ),
-            ),
+            dadosCep(_ufController, "UF"),
+            dadosCep(_bairroController, "Bairro"),
+            dadosCep(_cidadeContoller, "Cidade"),
+            dadosCep(_logradouroController, "Logradouro"),
+            dadosCep(_dddController, "DDD"),
           ],
         ),
       ),
@@ -117,5 +87,14 @@ class _HomePageState extends State<HomePage> {
     _ufController.text = _uf;
     _logradouroController.text = _logradouro;
     _dddController.text = _ddd;
+  }
+
+  Widget dadosCep(TextEditingController controller, String nomeCampoCep) {
+    return TextFormField(
+      controller: controller,
+      decoration: InputDecoration(
+        labelText: nomeCampoCep,
+      ),
+    );
   }
 }
