@@ -1,5 +1,6 @@
 import 'package:asramon/services/via_cep_service.dart';
 import 'package:flutter/material.dart';
+import 'package:share_plus/share_plus.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -26,6 +27,15 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Cep'),
+        actions: [
+          IconButton(
+            icon: const Icon(
+              Icons.share,
+              color: Colors.white,
+            ),
+            onPressed: () => _onShare(context),
+          )
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(24.0),
@@ -53,6 +63,26 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+
+  void _onShare(BuildContext context) async {
+    String _cidade;
+    String _cep;
+    String _uf;
+    String _endereco;
+    String _logradouro;
+    String _localidade;
+    String _ddd;
+
+    _endereco = _enderecoController.text;
+    _cidade = _cidadeContoller.text;
+    _localidade = _localidadeController.text;
+    _uf = _ufController.text;
+    _logradouro = _logradouroController.text;
+    _ddd = _dddController.text;
+    _cep = _cepController.text;
+
+    await Share.share("$_cep, ${_localidade.isNotEmpty ? _localidade : 'ds'}, ${_endereco.isNotEmpty ? _endereco : "sem Dados"}, $_cidade, $_logradouro, $_uf, $_ddd");
   }
 
   void searchCep() async {
