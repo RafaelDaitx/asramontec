@@ -82,7 +82,13 @@ class _HomePageState extends State<HomePage> {
     _ddd = _dddController.text;
     _cep = _cepController.text;
 
-    await Share.share("$_cep, ${_localidade.isNotEmpty ? _localidade : 'ds'}, ${_endereco.isNotEmpty ? _endereco : "sem Dados"}, $_cidade, $_logradouro, $_uf, $_ddd");
+    await Share.share("${_cep.isNotEmpty ? _cep : 'Sem dados do Cep, '}"
+        "${_localidade.isNotEmpty ? _localidade : 'sem dados da localidade, '}"
+        "${_endereco.isNotEmpty ? _endereco : 'sem Dados do endereço, '}"
+        "${_cidade.isNotEmpty ? _cidade : 'sem dados da cidade, '}"
+        "${_logradouro.isNotEmpty ? _logradouro : 'sem dados do logradouro, '}"
+        "${_uf.isNotEmpty ? _uf : 'sem dados da UF, '}"
+        "${_ddd.isNotEmpty ? _ddd : 'sem dados do DDD.'}");
   }
 
   void searchCep() async {
